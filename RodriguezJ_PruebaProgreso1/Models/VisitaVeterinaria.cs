@@ -7,8 +7,9 @@ namespace RodriguezJ_PruebaProgreso1.Models
     {
         [Key]
         public int Id { get; set; }
+        [DataType(DataType.Date)]
         public DateTime FechaVisita { get; set; }
-
+        [Required]
         public string Motivo { get; set; }// Vacunacion , Revision General o Cirugia
 
         public decimal Tarifa { get; set; }
