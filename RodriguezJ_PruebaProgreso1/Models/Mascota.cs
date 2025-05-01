@@ -8,8 +8,11 @@ namespace RodriguezJ_PruebaProgreso1.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Nombre { get; set; }
+        [Required]
         public string Raza { get; set; }
+        [Required]
         public string Especie { get; set; }
 
         public int Edad { get; set; }
