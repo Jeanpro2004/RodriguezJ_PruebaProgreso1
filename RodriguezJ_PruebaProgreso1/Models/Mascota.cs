@@ -6,6 +6,10 @@ namespace RodriguezJ_PruebaProgreso1.Models
 {
     public class Mascota
     {
+        public Mascota()
+        {
+            Visitas = new Collection<VisitaVeterinaria>();
+        }
         [Key]
         public int Id { get; set; }
         [Required]

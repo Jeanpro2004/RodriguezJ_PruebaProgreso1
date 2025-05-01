@@ -5,6 +5,11 @@ namespace RodriguezJ_PruebaProgreso1.Models
 {
     public class DuenoMascota
     {
+        public DuenoMascota()
+        {
+            Mascotas = new Collection<Mascota>();
+        }
+
         [Key]
 
         public int Id { get; set; }

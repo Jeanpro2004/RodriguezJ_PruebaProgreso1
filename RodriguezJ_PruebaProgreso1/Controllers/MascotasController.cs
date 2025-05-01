@@ -47,24 +47,32 @@ namespace RodriguezJ_PruebaProgreso1.Controllers
         // GET: Mascotas/Create
         public IActionResult Create()
         {
-            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Id");
+            // Usar Nombre en lugar de Id para la visualización en el dropdown
+            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Nombre");
             return View();
         }
 
         // POST: Mascotas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Raza,Especie,Edad,PesoKg,DuenoMascotaId")] Mascota mascota)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mascota);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(mascota);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or inspect it for debugging
+                    ModelState.AddModelError("", "Error al guardar: " + ex.Message);
+                }
             }
-            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Id", mascota.DuenoMascotaId);
+            // Si hay errores, volver a cargar el dropdown
+            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Nombre", mascota.DuenoMascotaId);
             return View(mascota);
         }
 
@@ -81,13 +89,12 @@ namespace RodriguezJ_PruebaProgreso1.Controllers
             {
                 return NotFound();
             }
-            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Id", mascota.DuenoMascotaId);
+            // Usar Nombre en lugar de Id para la visualización en el dropdown
+            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Nombre", mascota.DuenoMascotaId);
             return View(mascota);
         }
 
         // POST: Mascotas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Raza,Especie,Edad,PesoKg,DuenoMascotaId")] Mascota mascota)
@@ -103,6 +110,7 @@ namespace RodriguezJ_PruebaProgreso1.Controllers
                 {
                     _context.Update(mascota);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -115,9 +123,14 @@ namespace RodriguezJ_PruebaProgreso1.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                catch (Exception ex)
+                {
+                    // Log the exception or inspect it for debugging
+                    ModelState.AddModelError("", "Error al guardar: " + ex.Message);
+                }
             }
-            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Id", mascota.DuenoMascotaId);
+            // Usar Nombre en lugar de Id para la visualización en el dropdown
+            ViewData["DuenoMascotaId"] = new SelectList(_context.DuenoMascota, "Id", "Nombre", mascota.DuenoMascotaId);
             return View(mascota);
         }
 
