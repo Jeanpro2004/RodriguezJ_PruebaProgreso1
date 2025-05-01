@@ -4,6 +4,24 @@
 
 <div class="text-center">
     <h1 class="display-4">Examen Progreso 1</h1>
-    <img src="lib/Meme2.jpg" class="img-fluid" alt="Responsive image">
-   
+    <img src="lib/Meme2.jpg" class="img-fluid meme-image" alt="Mi meme favorito">
+    <div class="mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" id="campoTexto" class="form-control" placeholder="Ingrese texto aquí">
+                    <button class="btn btn-outline-success btn-lg" type="button" id="btnMostrarInfo">Mostrar Información</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('btnMostrarInfo').addEventListener('click', function() {
+            var valorCampo = document.getElementById('campoTexto').value;
+            alert("**Mi nombre es Jean Rodriguez, mi curso es Desarrollo Web, mi hobbie es programar y el valor del campo de texto es: " + valorCampo + "**");
+        });
+    </script>
+}
